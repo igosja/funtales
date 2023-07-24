@@ -8,10 +8,14 @@ use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * Class IndexController
+ * @package App\Http\Controllers\Admin
+ */
 class IndexController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * @return Response
      */
     public function index(): Response
     {
