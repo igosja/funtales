@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -38,8 +39,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('admin')->group(function () {
-    Route::get('/admin', [IndexController::class, 'index'])->name('admin');
+Route::middleware('admin')->name('admin.')->prefix('admin')->group(function () {
+    Route::get('/', [IndexController::class, 'index'])->name('home');
+    Route::name('language.')->prefix('language')->group(function () {
+        Route::delete('/destroy/{language}', [LanguageController::class, 'destroy'])->name('destroy');
+        Route::get('/', [LanguageController::class, 'index'])->name('index');
+        Route::get('/create', [LanguageController::class, 'create'])->name('create');
+        Route::get('/edit/{language}', [LanguageController::class, 'edit'])->name('edit');
+        Route::get('/show/{language}', [LanguageController::class, 'show'])->name('show');
+        Route::post('/store', [LanguageController::class, 'store'])->name('store');
+        Route::put('/update/{language}', [LanguageController::class, 'update'])->name('update');
+    });
 });
 
 require __DIR__.'/auth.php';
