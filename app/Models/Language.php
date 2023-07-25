@@ -19,4 +19,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Language extends Model
 {
+    /**
+     * @var string[] $fillable
+     */
+    protected $fillable = [
+        'code',
+        'name',
+        'is_active',
+    ];
+
+    protected $dateFormat = 'U';
 }

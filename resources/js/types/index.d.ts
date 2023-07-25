@@ -18,11 +18,6 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     auth: {
         user: User;
     };
-};
-
-export type LanguageListProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
-    auth: {
-        user: User;
-    };
+    language: Language;
     languages: Language[];
 };

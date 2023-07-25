@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Language\LanguageStoreRequest;
+use App\Http\Requests\Admin\Language\LanguageUpdateRequest;
 use App\Models\Language;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Throwable;
 
 /**
  * Class LanguageController
@@ -29,50 +33,78 @@ class LanguageController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
-        return Inertia::render('Admin/Language/Create');
+        return Inertia::render('Admin/Language/Create', [
+            'language' => new Language(),
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @param LanguageStoreRequest $request
+     * @return RedirectResponse
+     * @throws Throwable
      */
-    public function store(Request $request)
+    public function store(LanguageStoreRequest $request): RedirectResponse
     {
-        //
+        $language = new Language();
+        $language->fill($request->validated());
+        $language->saveOrFail();
+
+        return Redirect::route('admin.language.show', [
+            'language' => $language,
+        ]);
     }
 
     /**
-     * Display the specified resource.
+     * @param Language $language
+     * @return Response
      */
-    public function show(Language $language)
+    public function show(Language $language): Response
     {
-        //
+        return Inertia::render('Admin/Language/Show', [
+            'language' => $language,
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @param Language $language
+     * @return Response
      */
-    public function edit(Language $language)
+    public function edit(Language $language): Response
     {
-        //
+        return Inertia::render('Admin/Language/Update', [
+            'language' => $language,
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * @param LanguageUpdateRequest $request
+     * @param Language $language
+     * @return RedirectResponse
+     * @throws Throwable
      */
-    public function update(Request $request, Language $language)
+    public function update(LanguageUpdateRequest $request, Language $language): RedirectResponse
     {
-        //
+        $language->fill($request->validated());
+        $language->saveOrFail();
+
+        return Redirect::route('admin.language.show', [
+            'language' => $language,
+        ]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @param Language $language
+     * @return RedirectResponse
+     * @throws Throwable
      */
-    public function destroy(Language $language)
+    public function destroy(Language $language): RedirectResponse
     {
-        //
+        $language->deleteOrFail();
+
+        return Redirect::route('admin.language.index');
     }
 }

@@ -42,7 +42,13 @@ Route::middleware('auth')->group(function () {
 Route::middleware('admin')->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('home');
     Route::name('language.')->prefix('language')->group(function () {
+        Route::delete('/destroy/{language}', [LanguageController::class, 'destroy'])->name('destroy');
         Route::get('/', [LanguageController::class, 'index'])->name('index');
+        Route::get('/create', [LanguageController::class, 'create'])->name('create');
+        Route::get('/edit/{language}', [LanguageController::class, 'edit'])->name('edit');
+        Route::get('/show/{language}', [LanguageController::class, 'show'])->name('show');
+        Route::post('/store', [LanguageController::class, 'store'])->name('store');
+        Route::put('/update/{language}', [LanguageController::class, 'update'])->name('update');
     });
 });
 
