@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use danielme85\LaravelLogToDB\LogToDbHandler;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -20,7 +21,7 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    'default' => env('LOG_CHANNEL', 'database'),
 
     /*
     |--------------------------------------------------------------------------
@@ -58,6 +59,12 @@ return [
             'driver' => 'stack',
             'channels' => ['single'],
             'ignore_exceptions' => false,
+        ],
+
+        'database' => [
+            'driver' => 'custom',
+            'level' => env('LOG_LEVEL', 'debug'),
+            'via' => LogToDbHandler::class,
         ],
 
         'single' => [
