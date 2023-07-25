@@ -1,12 +1,12 @@
-import { PropsWithChildren, ReactNode, useState } from 'react';
-import { Link } from '@inertiajs/react';
-import { User } from '@/types';
+import {PropsWithChildren, ReactNode, useState} from 'react';
+import {Link} from '@inertiajs/react';
+import {User} from '@/types';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from "@/Components/Dropdown";
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 
-export default function Admin({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
+export default function Admin({user, header, children}: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -57,6 +57,7 @@ export default function Admin({ user, header, children }: PropsWithChildren<{ us
 
                                     <Dropdown.Content>
                                         <Dropdown.Link href={route('admin.language.index')}>Languages</Dropdown.Link>
+                                        <Dropdown.Link href={route('admin.log.index')}>Logs</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>
@@ -107,6 +108,7 @@ export default function Admin({ user, header, children }: PropsWithChildren<{ us
 
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink href={route('admin.language.index')}>Languages</ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('admin.log.index')}>Logs</ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
                             </ResponsiveNavLink>

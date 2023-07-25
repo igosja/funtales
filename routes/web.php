@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,11 @@ Route::middleware('admin')->name('admin.')->prefix('admin')->group(function () {
         Route::get('/show/{language}', [LanguageController::class, 'show'])->name('show');
         Route::post('/store', [LanguageController::class, 'store'])->name('store');
         Route::put('/update/{language}', [LanguageController::class, 'update'])->name('update');
+    });
+    Route::name('log.')->prefix('log')->group(function () {
+        Route::delete('/destroy/{log}', [LogController::class, 'destroy'])->name('destroy');
+        Route::get('/', [LogController::class, 'index'])->name('index');
+        Route::get('/show/{log}', [LogController::class, 'show'])->name('show');
     });
 });
 

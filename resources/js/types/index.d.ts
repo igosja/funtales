@@ -7,6 +7,20 @@ export interface Language {
     updated_at: number;
 }
 
+export interface Log {
+    id: number;
+    channel: string;
+    context: string;
+    created_at: string;
+    datetime: string;
+    extra: string;
+    level: number;
+    level_name: string;
+    message: string;
+    unix_time: number;
+    updated_at: string;
+}
+
 export interface User {
     id: number;
     name: string;
@@ -20,4 +34,6 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     };
     language: Language;
     languages: Language[];
+    log: Log;
+    logs: Log[];
 };
