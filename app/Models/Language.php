@@ -7,7 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class string
+ * Class Language
  * @package App\Models
  *
  * @property int id

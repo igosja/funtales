@@ -7,7 +7,7 @@ namespace App\Models;
 use danielme85\LaravelLogToDB\Models\DBLog;
 
 /**
- * Class string
+ * Class Log
  * @package App\Models
  *
  * @property int id
