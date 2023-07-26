@@ -23,9 +23,12 @@ export interface Log {
 
 export interface User {
     id: number;
-    name: string;
+    created_at: string;
     email: string;
     email_verified_at: string;
+    name: string;
+    role: number;
+    updated_at: string;
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
@@ -36,4 +39,6 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     languages: Language[];
     log: Log;
     logs: Log[];
+    user: User;
+    users: User[];
 };
