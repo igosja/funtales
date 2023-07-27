@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -45,6 +46,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [PostController::class, 'create'])->name('create');
         Route::get('/show/{post}', [PostController::class, 'show'])->name('show');
         Route::put('/store', [PostController::class, 'store'])->name('store');
+    });
+    Route::name('comment.')->prefix('comment')->group(function () {
+        Route::put('/store', [CommentController::class, 'store'])->name('store');
     });
 });
 

@@ -13,7 +13,7 @@ use Inertia\Response;
 use Throwable;
 
 /**
- * Class LanguageController
+ * Class PostController
  * @package App\Http\Controllers\Admin
  */
 class PostController extends Controller
@@ -65,6 +65,8 @@ class PostController extends Controller
     {
         $post->views++;
         $post->saveOrFail();
+
+        $post->comments;
 
         return Inertia::render('Post/Show', [
             'post' => $post,
