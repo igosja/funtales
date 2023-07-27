@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostRatingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -41,14 +42,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::name('comment.')->prefix('comment')->group(function () {
+        Route::put('/store', [CommentController::class, 'store'])->name('store');
+    });
     Route::name('post.')->prefix('post')->group(function () {
         Route::get('/', [PostController::class, 'index'])->name('index');
         Route::get('/create', [PostController::class, 'create'])->name('create');
         Route::get('/show/{post}', [PostController::class, 'show'])->name('show');
         Route::put('/store', [PostController::class, 'store'])->name('store');
     });
-    Route::name('comment.')->prefix('comment')->group(function () {
-        Route::put('/store', [CommentController::class, 'store'])->name('store');
+    Route::name('post-rating.')->prefix('post-rating')->group(function () {
+        Route::put('/store', [PostRatingController::class, 'store'])->name('store');
     });
 });
 

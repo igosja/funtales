@@ -38,7 +38,17 @@ export default function Show({auth, post}: PageProps) {
                             </tr>
                             <tr>
                                 <th>rating</th>
-                                <td>{post.rating}</td>
+                                <td>
+                                    {post.rating}
+                                    <Link href={route('post-rating.store', {post_id: post.id, value: 1})} method="put"
+                                          as="button">
+                                        +
+                                    </Link>
+                                    <Link href={route('post-rating.store', {post_id: post.id, value: -1})} method="put"
+                                          as="button">
+                                        -
+                                    </Link>
+                                </td>
                             </tr>
                             <tr>
                                 <th>slug</th>
