@@ -25,6 +25,16 @@ export default function Admin({user, header, children}: PropsWithChildren<{ user
                                 <NavLink href={route('admin.home')} active={route().current('admin.home')}>
                                     Admin
                                 </NavLink>
+                                <NavLink href={route('admin.user.index')} active={route().current('admin.user.index')}>
+                                    Users
+                                </NavLink>
+                                <NavLink href={route('admin.language.index')}
+                                         active={route().current('admin.language.index')}>
+                                    Languages
+                                </NavLink>
+                                <NavLink href={route('admin.log.index')} active={route().current('admin.log.index')}>
+                                    Logs
+                                </NavLink>
                             </div>
                         </div>
 
@@ -56,9 +66,6 @@ export default function Admin({user, header, children}: PropsWithChildren<{ user
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('admin.language.index')}>Languages</Dropdown.Link>
-                                        <Dropdown.Link href={route('admin.log.index')}>Logs</Dropdown.Link>
-                                        <Dropdown.Link href={route('admin.user.index')}>Users</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>
@@ -98,6 +105,17 @@ export default function Admin({user, header, children}: PropsWithChildren<{ user
                         <ResponsiveNavLink href={route('admin.home')} active={route().current('admin.home')}>
                             Admin
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('admin.user.index')}
+                                           active={route().current('admin.user.index')}>
+                            Users
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('admin.language.index')}
+                                           active={route().current('admin.language.index')}>
+                            Languages
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('admin.log.index')} active={route().current('admin.log.index')}>
+                            Logs
+                        </ResponsiveNavLink>
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
@@ -108,9 +126,6 @@ export default function Admin({user, header, children}: PropsWithChildren<{ user
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('admin.language.index')}>Languages</ResponsiveNavLink>
-                            <ResponsiveNavLink href={route('admin.log.index')}>Logs</ResponsiveNavLink>
-                            <ResponsiveNavLink href={route('admin.user.index')}>Users</ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
                             </ResponsiveNavLink>

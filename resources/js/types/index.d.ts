@@ -1,3 +1,14 @@
+export interface Comment {
+    id: number;
+    created_at: number;
+    created_by: number;
+    post_id: number;
+    rating: number;
+    text: string;
+    updated_at: number;
+    updated_by: number;
+}
+
 export interface Language {
     id: number;
     code: string;
@@ -23,6 +34,7 @@ export interface Log {
 
 export interface Post {
     id: number;
+    comments: Comment[];
     created_at: number;
     created_by: number;
     language_id: number;

@@ -1,6 +1,7 @@
 import {Head, Link} from '@inertiajs/react';
 import {PageProps} from '@/types';
 import Authenticated from "@/Layouts/AuthenticatedLayout";
+import CommentForm from "@/Pages/Comment/Partials/CommentForm";
 
 export default function Show({auth, post}: PageProps) {
     return (
@@ -65,6 +66,30 @@ export default function Show({auth, post}: PageProps) {
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    {post.comments?.map(({created_at, created_by, rating, text}) => (
+                        <div>
+                            <div>{text}</div>
+                            <div>Created by: {created_by}</div>
+                            <div>Created at: {created_at}</div>
+                            <div>{text}</div>
+                            <div>Rating: {rating}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="py-12">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                        <CommentForm
+                            post={post}
+                            className="max-w-xl"
+                        />
                     </div>
                 </div>
             </div>
