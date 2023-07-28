@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int created_at
  * @property int created_by
  * @property int post_id
+ * @property int rating
  * @property string text
  * @property int updated_at
  * @property int updated_by
@@ -55,10 +56,10 @@ class Comment extends Model
     }
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function post(): HasOne
+    public function post(): BelongsTo
     {
-        return $this->hasOne(Post::class);
+        return $this->belongsTo(Post::class);
     }
 }

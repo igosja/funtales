@@ -40,11 +40,11 @@ export default function Show({auth, post}: PageProps) {
                                 <th>rating</th>
                                 <td>
                                     {post.rating}
-                                    <Link href={route('post-rating.store', {post_id: post.id, value: 1})} method="put"
+                                    <Link href={route('rating-post.store', {post_id: post.id, value: 1})} method="put"
                                           as="button">
                                         +
                                     </Link>
-                                    <Link href={route('post-rating.store', {post_id: post.id, value: -1})} method="put"
+                                    <Link href={route('rating-post.store', {post_id: post.id, value: -1})} method="put"
                                           as="button">
                                         -
                                     </Link>
@@ -81,13 +81,23 @@ export default function Show({auth, post}: PageProps) {
             </div>
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    {post.comments?.map(({created_at, created_by, rating, text}) => (
+                    {post.comments?.map(({id, created_at, created_by, rating, text}) => (
                         <div>
                             <div>{text}</div>
                             <div>Created by: {created_by}</div>
                             <div>Created at: {created_at}</div>
                             <div>{text}</div>
-                            <div>Rating: {rating}</div>
+                            <div>
+                                Rating: {rating}
+                                <Link href={route('rating-comment.store', {comment_id: id, value: 1})} method="put"
+                                      as="button">
+                                    +
+                                </Link>
+                                <Link href={route('rating-comment.store', {comment_id: id, value: -1})} method="put"
+                                      as="button">
+                                    -
+                                </Link>
+                            </div>
                         </div>
                     ))}
                 </div>

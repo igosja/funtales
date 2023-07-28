@@ -8,8 +8,9 @@ use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\PostRatingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RatingCommentController;
+use App\Http\Controllers\RatingPostController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -51,8 +52,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/show/{post}', [PostController::class, 'show'])->name('show');
         Route::put('/store', [PostController::class, 'store'])->name('store');
     });
-    Route::name('post-rating.')->prefix('post-rating')->group(function () {
-        Route::put('/store', [PostRatingController::class, 'store'])->name('store');
+    Route::name('rating-comment.')->prefix('rating-comment')->group(function () {
+        Route::put('/store', [RatingCommentController::class, 'store'])->name('store');
+    });
+    Route::name('rating-post.')->prefix('rating-post')->group(function () {
+        Route::put('/store', [RatingPostController::class, 'store'])->name('store');
     });
 });
 

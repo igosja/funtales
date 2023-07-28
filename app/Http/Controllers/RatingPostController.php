@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRating\PostRatingStoreRequest;
+use App\Http\Requests\RatingPost\RatingPostStoreRequest;
 use App\Models\RatingPost;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -12,17 +12,17 @@ use Illuminate\Support\Facades\Redirect;
 use Throwable;
 
 /**
- * Class PostRatingController
+ * Class RatingPostController
  * @package App\Http\Controllers
  */
-class PostRatingController extends Controller
+class RatingPostController extends Controller
 {
     /**
-     * @param PostRatingStoreRequest $request
+     * @param RatingPostStoreRequest $request
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function store(PostRatingStoreRequest $request): RedirectResponse
+    public function store(RatingPostStoreRequest $request): RedirectResponse
     {
         $ratingPost = RatingPost::where('user_id', Auth::user()->id)
             ->where('post_id', $request->get('post_id'))

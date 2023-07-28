@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\PostRating;
+namespace App\Http\Requests\RatingPost;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class PostRatingStoreRequest
+ * Class RatingPostStoreRequest
  * @package App\Http\Requests\Post
  */
-class PostRatingStoreRequest extends FormRequest
+class RatingPostStoreRequest extends FormRequest
 {
     /**
      * @return array[]
