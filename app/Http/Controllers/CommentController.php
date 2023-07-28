@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Comment\CommentStoreRequest;
 use App\Models\Comment;
-use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Throwable;
@@ -28,10 +27,8 @@ class CommentController extends Controller
         $comment->fill($request->validated());
         $comment->saveOrFail();
 
-        $post = Post::findOrFail($comment->post_id);
-
         return Redirect::route('post.show', [
-            'post' => $post,
+            'post' => $comment->post,
         ]);
     }
 }

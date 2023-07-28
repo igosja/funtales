@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Auth;
  * @property string text
  * @property int updated_at
  * @property int updated_by
+ *
+ * @property Post post
  */
 class Comment extends Model
 {
@@ -49,5 +52,13 @@ class Comment extends Model
             $user = Auth::user();
             $model->updated_by = $user->id;
         });
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function post(): HasOne
+    {
+        return $this->hasOne(Post::class);
     }
 }
