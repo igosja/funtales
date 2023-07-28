@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +17,7 @@ return new class extends Migration {
             $table->unsignedInteger('created_at');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('post_id');
-            $table->unsignedInteger('rating')->default(0);
+            $table->integer('rating')->default(0);
             $table->text('text');
             $table->unsignedInteger('updated_at');
             $table->unsignedBigInteger('updated_by');

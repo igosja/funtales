@@ -12,15 +12,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('rating_posts', function (Blueprint $table) {
+        Schema::create('rating_comments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('comment_id');
             $table->unsignedInteger('created_at');
-            $table->unsignedBigInteger('post_id');
             $table->unsignedInteger('updated_at');
             $table->unsignedBigInteger('user_id');
             $table->tinyInteger('value');
 
-            $table->foreign('post_id')->references('id')->on('posts');
+            $table->foreign('comment_id')->references('id')->on('comments');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('rating_posts');
+        Schema::dropIfExists('rating_comments');
     }
 };
