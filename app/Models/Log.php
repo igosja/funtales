@@ -24,5 +24,13 @@ use danielme85\LaravelLogToDB\Models\DBLog;
  */
 class Log extends DBLog
 {
+    /**
+     * @var string $dateFormat
+     */
+    protected $dateFormat = 'U';
+
+    /**
+     * @var string $table
+     */
     protected $table = 'log';
 }

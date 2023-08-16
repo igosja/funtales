@@ -14,20 +14,23 @@ return new class extends Migration {
      */
     public function up()
     {
-        if (Schema::connection(config('logtodb.connection'))->hasTable(config('logtodb.collection')) === false) {
-            Schema::connection(config('logtodb.connection'))->create(config('logtodb.collection'),
+        if (false === Schema::connection(config('logtodb.connection'))->hasTable(config('logtodb.collection'))) {
+            Schema::connection(config('logtodb.connection'))->create(
+                config('logtodb.collection'),
                 function (Blueprint $table) {
                     $table->increments('id');
-                    $table->text('message')->nullable();
+                    $table->unsignedInteger('created_at');
                     $table->string('channel')->nullable();
+                    $table->longText('context')->nullable();
+                    $table->string('datetime')->nullable();
+                    $table->text('extra')->nullable();
+                    $table->text('message')->nullable();
                     $table->integer('level')->default(0);
                     $table->string('level_name', 20);
                     $table->integer('unix_time');
-                    $table->string('datetime')->nullable();
-                    $table->longText('context')->nullable();
-                    $table->text('extra')->nullable();
-                    $table->timestamps();
-                });
+                    $table->unsignedInteger('updated_at');
+                }
+            );
         }
     }
 
