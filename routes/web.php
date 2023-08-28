@@ -35,6 +35,8 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/index', [\App\Http\Controllers\IndexController::class, 'index'])->name('index');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

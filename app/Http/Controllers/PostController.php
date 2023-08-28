@@ -14,7 +14,7 @@ use Throwable;
 
 /**
  * Class PostController
- * @package App\Http\Controllers\Admin
+ * @package App\Http\Controllers
  */
 class PostController extends Controller
 {
