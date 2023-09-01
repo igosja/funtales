@@ -1,8 +1,11 @@
 import MainLayout from '@/Layouts/MainLayout';
+import {PageProps} from "@/types";
 
-export default function Index() {
+export default function Index({auth}: PageProps) {
     return (
-        <MainLayout>
+        <MainLayout
+            user={auth.user}
+        >
             Main layout page content
         </MainLayout>
     );

@@ -11,6 +11,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RatingCommentController;
 use App\Http\Controllers\RatingPostController;
+use App\Http\Controllers\SignController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,7 +27,10 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
+Route::get('/logout', [SignController::class, 'logout'])->name('logout');
+
+Route::get('/index', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -34,8 +38,6 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
-Route::get('/index', [\App\Http\Controllers\IndexController::class, 'index'])->name('index');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

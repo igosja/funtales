@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -18,6 +19,10 @@ class IndexController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('Index/Index');
+        $posts = Post::get();
+
+        return Inertia::render('Index/Index', [
+            'posts' => $posts,
+        ]);
     }
 }
