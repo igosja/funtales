@@ -25,15 +25,11 @@ export default function Show({auth, user}: PageProps) {
                             </tr>
                             <tr>
                                 <th>name</th>
-                                <td>{user.name}</td>
+                                <td>{user.login}</td>
                             </tr>
                             <tr>
                                 <th>email</th>
                                 <td>{user.email}</td>
-                            </tr>
-                            <tr>
-                                <th>email_verified_at</th>
-                                <td>{user.email_verified_at}</td>
                             </tr>
                             <tr>
                                 <th>role</th>

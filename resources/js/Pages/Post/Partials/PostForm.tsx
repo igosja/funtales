@@ -1,13 +1,12 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import {useForm} from '@inertiajs/react';
 import {Transition} from '@headlessui/react';
-import {FormEventHandler} from 'react';
+import {FormEventHandler, useState} from 'react';
 import {Post} from '@/types';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 export default function PostForm({post, className = ''}: { post: Post, className?: string }) {
+    const [validated, setValidated] = useState(false);
     const {data, setData, put, errors, processing, recentlySuccessful} = useForm({
         text: post.text,
         title: post.title,
@@ -16,6 +15,7 @@ export default function PostForm({post, className = ''}: { post: Post, className
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         put(route('post.store'))
+        setValidated(true);
     };
 
     return (
@@ -28,50 +28,48 @@ export default function PostForm({post, className = ''}: { post: Post, className
                 </p>
             </header>
 
-            <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="title" value="title"/>
-
-                    <TextInput
-                        id="title"
-                        className="mt-1 block w-full"
-                        value={data.title}
+            <Form noValidate validated={validated} onSubmit={submit}>
+                <Form.Group className="mb-3">
+                    <Form.Label>Title</Form.Label>
+                    <Form.Control
+                        autoFocus
+                        isInvalid={!!errors.title}
                         onChange={(e) => setData('title', e.target.value)}
                         required
-                        isFocused
+                        value={data.title}
                     />
-
-                    <InputError className="mt-2" message={errors.title}/>
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="text" value="text"/>
-
-                    <TextInput
-                        id="name"
-                        className="mt-1 block w-full"
-                        value={data.text}
+                    <Form.Control.Feedback type="invalid">
+                        {errors.title}
+                    </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Text</Form.Label>
+                    <Form.Control
+                        as="textarea"
+                        autoFocus
+                        isInvalid={!!errors.text}
                         onChange={(e) => setData('text', e.target.value)}
                         required
+                        value={data.text}
                     />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.text}
+                    </Form.Control.Feedback>
+                </Form.Group>
+                <Button variant="primary" type="submit" disabled={processing}>
+                    Save
+                </Button>
 
-                    <InputError className="mt-2" message={errors.text}/>
-                </div>
-
-                <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
-
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600">Saved.</p>
-                    </Transition>
-                </div>
-            </form>
+                <Transition
+                    show={recentlySuccessful}
+                    enter="transition ease-in-out"
+                    enterFrom="opacity-0"
+                    leave="transition ease-in-out"
+                    leaveTo="opacity-0"
+                >
+                    <p className="text-sm text-gray-600">Saved.</p>
+                </Transition>
+            </Form>
         </section>
     );
 }

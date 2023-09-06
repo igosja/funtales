@@ -17,8 +17,8 @@ return new class extends Migration {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('created_at');
-            $table->string('login')->unique();
             $table->string('email')->unique();
+            $table->string('login')->unique();
             $table->string('password');
             $table->rememberToken();
             $table->unsignedTinyInteger('role')->default(0);
@@ -26,8 +26,8 @@ return new class extends Migration {
         });
 
         User::create([
-            'login' => 'igosja',
             'email' => 'igosja@ukr.net',
+            'login' => 'igosja',
             'password' => Hash::make('gfhjkm'),
             'role' => User::ROLE_ADMIN,
         ]);

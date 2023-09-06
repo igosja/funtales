@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {User} from '@/types';
-import LoginMenu from "@/Components/LoginMenu";
+import MenuUser from "@/Components/Menu/MenuUser";
 
 export default function MainLayout({user, children}: PropsWithChildren<{ user: User }>) {
     return (
@@ -16,7 +16,7 @@ export default function MainLayout({user, children}: PropsWithChildren<{ user: U
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
                                 <Nav.Link href={route('home')}>Home</Nav.Link>
-                                <LoginMenu user={user}/>
+                                <MenuUser user={user}/>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

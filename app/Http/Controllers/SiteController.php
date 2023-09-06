@@ -9,10 +9,10 @@ use Inertia\Inertia;
 use Inertia\Response;
 
 /**
- * Class IndexController
+ * Class SiteController
  * @package App\Http\Controllers
  */
-class IndexController extends Controller
+class SiteController extends Controller
 {
     /**
      * @return Response
@@ -21,7 +21,7 @@ class IndexController extends Controller
     {
         $posts = Post::get();
 
-        return Inertia::render('Index/Index', [
+        return Inertia::render('Site/Index', [
             'posts' => $posts,
         ]);
     }

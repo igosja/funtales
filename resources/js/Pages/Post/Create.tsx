@@ -1,13 +1,12 @@
 import PostForm from './Partials/PostForm';
 import {Head, Link} from '@inertiajs/react';
 import {PageProps, Post} from '@/types';
-import Authenticated from "@/Layouts/AuthenticatedLayout";
+import MainLayout from "@/Layouts/MainLayout";
 
 export default function Edit({auth, post}: PageProps<{ post: Post }>) {
     return (
-        <Authenticated
+        <MainLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Create post</h2>}
         >
             <Head title="Posts"/>
 
@@ -25,6 +24,6 @@ export default function Edit({auth, post}: PageProps<{ post: Post }>) {
                     </div>
                 </div>
             </div>
-        </Authenticated>
+        </MainLayout>
     );
 }

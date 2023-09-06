@@ -6,12 +6,13 @@ use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RatingCommentController;
 use App\Http\Controllers\RatingPostController;
-use App\Http\Controllers\SignController;
+use App\Http\Controllers\SiteController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,8 +28,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
-Route::get('/logout', [SignController::class, 'logout'])->name('logout');
+Route::get('/', [SiteController::class, 'index'])->name('home');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/index', function () {
     return Inertia::render('Welcome', [

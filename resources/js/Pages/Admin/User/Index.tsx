@@ -17,18 +17,18 @@ export default function Index({auth, users}: PageProps) {
                             <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Name</th>
                                 <th>Email</th>
+                                <th>Login</th>
                                 <th>Role</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            {users.map(({id, name, email, role}) => (
+                            {users.map(({id, email, login, role}) => (
                                 <tr>
                                     <td>{id}</td>
-                                    <td>{name}</td>
                                     <td>{email}</td>
+                                    <td>{login}</td>
                                     <td>{role}</td>
                                     <td>
                                         <Link href={route('admin.user.show', {id: id})}>
