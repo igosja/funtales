@@ -38,8 +38,8 @@ class RatingCommentController extends Controller
         $ratingComment->comment->rating += $ratingComment->value;
         $ratingComment->comment->saveOrFail();
 
-        return Redirect::route('post.show', [
-            'post' => $ratingComment->comment->post,
+        return Redirect::route('article.show', [
+            'article' => $ratingComment->comment->article,
         ]);
     }
 }

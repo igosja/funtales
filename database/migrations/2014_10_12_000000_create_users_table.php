@@ -14,16 +14,19 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('created_at');
-            $table->string('email')->unique();
-            $table->string('login')->unique();
-            $table->string('password');
-            $table->rememberToken();
-            $table->unsignedTinyInteger('role')->default(0);
-            $table->unsignedInteger('updated_at');
-        });
+        Schema::create(
+            app(User::class)->getTable(),
+            function (Blueprint $table) {
+                $table->id();
+                $table->unsignedInteger('created_at');
+                $table->string('email')->unique();
+                $table->string('login')->unique();
+                $table->string('password');
+                $table->rememberToken();
+                $table->unsignedTinyInteger('role')->default(0);
+                $table->unsignedInteger('updated_at');
+            }
+        );
 
         User::create([
             'email' => 'igosja@ukr.net',
@@ -38,6 +41,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists(app(User::class)->getTable());
     }
 };

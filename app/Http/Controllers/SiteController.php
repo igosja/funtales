@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Article;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -19,10 +19,10 @@ class SiteController extends Controller
      */
     public function index(): Response
     {
-        $posts = Post::get();
+        $articles = Article::orderBy('id', 'desc')->get();
 
         return Inertia::render('Site/Index', [
-            'posts' => $posts,
+            'articles' => $articles,
         ]);
     }
 }

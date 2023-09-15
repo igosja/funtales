@@ -1,8 +1,23 @@
-export interface Comment {
+export interface Article {
     id: number;
+    comments: Comment[];
     created_at: number;
     created_by: number;
-    post_id: number;
+    language_id: number;
+    rating: number;
+    slug: string;
+    title: string;
+    text: string;
+    updated_at: number;
+    updated_by: number;
+    views: number;
+}
+
+export interface Comment {
+    id: number;
+    article_id: number;
+    created_at: number;
+    created_by: number;
     rating: number;
     text: string;
     updated_at: number;
@@ -32,21 +47,6 @@ export interface Log {
     updated_at: string;
 }
 
-export interface Post {
-    id: number;
-    comments: Comment[];
-    created_at: number;
-    created_by: number;
-    language_id: number;
-    rating: number;
-    slug: string;
-    title: string;
-    text: string;
-    updated_at: number;
-    updated_by: number;
-    views: number;
-}
-
 export interface User {
     id: number;
     created_at: string;
@@ -57,6 +57,8 @@ export interface User {
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+    article: Article;
+    articles: Article[];
     auth: {
         user: User;
     };
@@ -64,8 +66,6 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     languages: Language[];
     log: Log;
     logs: Log[];
-    post: Post;
-    posts: Post[];
     user: User;
     users: User[];
 };

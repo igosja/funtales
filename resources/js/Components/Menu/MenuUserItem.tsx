@@ -7,7 +7,7 @@ export default function MenuUserItem({user}: PropsWithChildren<{ user: User }>) 
         <NavDropdown title={user.login} id="basic-nav-dropdown">
             <NavDropdown.Item href={route('logout')}>Sign Out</NavDropdown.Item>
             <NavDropdown.Divider/>
-            <NavDropdown.Item href={route('post.create')}>Create post</NavDropdown.Item>
+            <NavDropdown.Item href={route('article.create')}>Create article</NavDropdown.Item>
         </NavDropdown>
     );
 }

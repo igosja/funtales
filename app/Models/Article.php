@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 /**
- * Class Post
+ * Class Article
  * @package App\Models
  *
  * @property int id
@@ -27,7 +27,7 @@ use Illuminate\Support\Str;
  *
  * @property Comment[] comments
  */
-class Post extends Model
+class Article extends Model
 {
     /**
      * @var string[] $fillable

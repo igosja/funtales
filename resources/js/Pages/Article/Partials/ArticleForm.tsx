@@ -1,30 +1,31 @@
 import {useForm} from '@inertiajs/react';
 import {Transition} from '@headlessui/react';
 import {FormEventHandler, useState} from 'react';
-import {Post} from '@/types';
+import {Article} from '@/types';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-export default function PostForm({post, className = ''}: { post: Post, className?: string }) {
+export default function ArticleForm({article, className = ''}: { article: Article, className?: string }) {
     const [validated, setValidated] = useState(false);
-    const {data, setData, put, errors, processing, recentlySuccessful} = useForm({
-        text: post.text,
-        title: post.title,
+    const {data, setData, post, errors, processing, recentlySuccessful} = useForm({
+        text: article.text,
+        title: article.title,
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        put(route('post.store'))
+        post(route('article.store'));
         setValidated(true);
+        ;
     };
 
     return (
-        <section className={className}>
+        <section>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Post</h2>
+                <h2 className="text-lg font-medium text-gray-900">Article</h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Create post.
+                    Create article.
                 </p>
             </header>
 
@@ -46,7 +47,6 @@ export default function PostForm({post, className = ''}: { post: Post, className
                     <Form.Label>Text</Form.Label>
                     <Form.Control
                         as="textarea"
-                        autoFocus
                         isInvalid={!!errors.text}
                         onChange={(e) => setData('text', e.target.value)}
                         required
@@ -67,7 +67,7 @@ export default function PostForm({post, className = ''}: { post: Post, className
                     leave="transition ease-in-out"
                     leaveTo="opacity-0"
                 >
-                    <p className="text-sm text-gray-600">Saved.</p>
+                    <p className="text-sm text-gray-600">Saved</p>
                 </Transition>
             </Form>
         </section>

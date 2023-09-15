@@ -8,11 +8,9 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     /**
-     * Run the migrations.
-     *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         if (false === Schema::connection(config('logtodb.connection'))->hasTable(config('logtodb.collection'))) {
             Schema::connection(config('logtodb.connection'))->create(
@@ -35,11 +33,9 @@ return new class extends Migration {
     }
 
     /**
-     * Reverse the migrations.
-     *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::connection(config('logtodb.connection'))->dropIfExists(config('logtodb.collection'));
     }

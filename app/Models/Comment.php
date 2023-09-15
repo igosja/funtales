@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Auth;
  * @package App\Models
  *
  * @property int id
+ * @property int article_id
  * @property int created_at
  * @property int created_by
- * @property int post_id
  * @property int rating
  * @property string text
  * @property int updated_at
  * @property int updated_by
  *
- * @property Post post
+ * @property Article article
  */
 class Comment extends Model
 {
@@ -29,7 +29,7 @@ class Comment extends Model
      * @var string[] $fillable
      */
     protected $fillable = [
-        'post_id',
+        'article_id',
         'text',
     ];
 
@@ -58,8 +58,8 @@ class Comment extends Model
     /**
      * @return BelongsTo
      */
-    public function post(): BelongsTo
+    public function article(): BelongsTo
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Article::class);
     }
 }

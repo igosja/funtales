@@ -7,20 +7,25 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+    private const TABLE = 'failed_jobs';
+
     /**
      * @return void
      */
     public function up(): void
     {
-        Schema::create('failed_jobs', function (Blueprint $table) {
-            $table->id();
-            $table->longText('exception');
-            $table->unsignedInteger('failed_at');
-            $table->text('connection');
-            $table->longText('payload');
-            $table->text('queue');
-            $table->string('uuid')->unique();
-        });
+        Schema::create(
+            self::TABLE,
+            function (Blueprint $table) {
+                $table->id();
+                $table->longText('exception');
+                $table->unsignedInteger('failed_at');
+                $table->text('connection');
+                $table->longText('payload');
+                $table->text('queue');
+                $table->string('uuid')->unique();
+            }
+        );
     }
 
     /**
@@ -28,6 +33,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('failed_jobs');
+        Schema::dropIfExists(self::TABLE);
     }
 };

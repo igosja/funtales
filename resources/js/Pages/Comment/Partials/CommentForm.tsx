@@ -1,62 +1,54 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import {useForm} from '@inertiajs/react';
+import {Article} from '@/types';
+import {FormEventHandler, useState} from 'react';
 import {Transition} from '@headlessui/react';
-import {FormEventHandler} from 'react';
-import {Post} from '@/types';
+import {useForm} from '@inertiajs/react';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
-export default function CommentForm({post, className = ''}: { post: Post, className?: string }) {
-    const {data, setData, put, errors, processing, recentlySuccessful} = useForm({
-        post_id: post.id,
+export default function CommentForm({article}: { article: Article }) {
+    const [validated, setValidated] = useState(false);
+    const {data, setData, post, errors, processing, recentlySuccessful} = useForm({
+        article_id: article.id,
         text: '',
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        put(route('comment.store'))
+        post(route('comment.store'));
+        setValidated(true);
     };
 
     return (
-        <section className={className}>
-            <form onSubmit={submit} className="mt-6 space-y-6">
-                <TextInput
-                    id="post_id"
-                    className="mt-1 block w-full"
-                    value={data.post_id}
-                    onChange={(e) => setData('post_id', e.target.valueAsNumber)}
-                    type="hidden"
-                    required
-                />
-                <div>
-                    <InputLabel htmlFor="text" value="text"/>
-
-                    <TextInput
-                        id="text"
-                        className="mt-1 block w-full"
-                        value={data.text}
+        <section>
+            <Form noValidate validated={validated} onSubmit={submit}>
+                <Form.Group className="mb-3">
+                    <Form.Label>Text</Form.Label>
+                    <Form.Control
+                        as="textarea"
+                        autoFocus
+                        isInvalid={!!errors.text}
                         onChange={(e) => setData('text', e.target.value)}
                         required
+                        value={data.text}
                     />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.text}
+                    </Form.Control.Feedback>
+                </Form.Group>
+                <Button variant="primary" type="submit" disabled={processing}>
+                    Save
+                </Button>
 
-                    <InputError className="mt-2" message={errors.text}/>
-                </div>
-
-                <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
-
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600">Saved.</p>
-                    </Transition>
-                </div>
-            </form>
+                <Transition
+                    show={recentlySuccessful}
+                    enter="transition ease-in-out"
+                    enterFrom="opacity-0"
+                    leave="transition ease-in-out"
+                    leaveTo="opacity-0"
+                >
+                    <p className="text-sm text-gray-600">Saved</p>
+                </Transition>
+            </Form>
         </section>
     );
 }

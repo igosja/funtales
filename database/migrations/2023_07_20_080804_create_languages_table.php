@@ -14,19 +14,22 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('languages', function (Blueprint $table) {
-            $table->id();
-            $table->string('code', 2)->unique();
-            $table->unsignedInteger('created_at')->useCurrent();
-            $table->unsignedBigInteger('created_by');
-            $table->string('name');
-            $table->boolean('is_active')->default(false);
-            $table->unsignedInteger('updated_at')->useCurrentOnUpdate();
-            $table->unsignedBigInteger('updated_by');
+        Schema::create(
+            app(Language::class)->getTable(),
+            function (Blueprint $table) {
+                $table->id();
+                $table->string('code', 2)->unique();
+                $table->unsignedInteger('created_at')->useCurrent();
+                $table->unsignedBigInteger('created_by');
+                $table->string('name');
+                $table->boolean('is_active')->default(false);
+                $table->unsignedInteger('updated_at')->useCurrentOnUpdate();
+                $table->unsignedBigInteger('updated_by');
 
-            $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('updated_by')->references('id')->on('users');
-        });
+                $table->foreign('created_by')->references('id')->on('users');
+                $table->foreign('updated_by')->references('id')->on('users');
+            }
+        );
 
         DB::table(app(Language::class)->getTable())->insert([
             'code' => 'en',
@@ -64,6 +67,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('languages');
+        Schema::dropIfExists(app(Language::class)->getTable());
     }
 };
