@@ -27,8 +27,8 @@ class CommentController extends Controller
         $comment->fill($request->validated());
         $comment->saveOrFail();
 
-        return Redirect::route('post.show', [
-            'post' => $comment->post,
+        return Redirect::route('article.show', [
+            'article' => $comment->article,
         ]);
     }
 }

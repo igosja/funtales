@@ -14,13 +14,12 @@ use Laravel\Sanctum\HasApiTokens;
  * @package App\Models
  *
  * @property int id
- * @property string name
- * @property string email
- * @property string email_verified_at
- * @property string password
- * @property int role
- * @property string remember_token
  * @property string created_at
+ * @property string email
+ * @property string login
+ * @property string password
+ * @property string remember_token
+ * @property int role
  * @property string updated_at
  */
 class User extends Authenticatable
@@ -30,35 +29,33 @@ class User extends Authenticatable
     public const ROLE_ADMIN = 9;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * @var string[] $casts
+     */
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
+    /**
+     * @var string $dateFormat
+     */
+    protected $dateFormat = 'U';
+
+    /**
+     * @var string[] $fillable
      */
     protected $fillable = [
         'email',
-        'name',
+        'login',
         'password',
         'role',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * @var string[] $hidden
      */
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 
     /**

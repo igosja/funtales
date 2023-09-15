@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\RatingPost;
+namespace App\Http\Requests\RatingArticle;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class RatingPostStoreRequest
+ * Class RatingArticleStoreRequest
  * @package App\Http\Requests\Post
  */
-class RatingPostStoreRequest extends FormRequest
+class RatingArticleStoreRequest extends FormRequest
 {
     /**
      * @return array[]
@@ -18,7 +18,7 @@ class RatingPostStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'post_id' => ['required', 'integer', 'exists:posts,id'],
+            'article_id' => ['required', 'integer', 'exists:articles,id'],
             'value' => ['required', 'integer'],
         ];
     }

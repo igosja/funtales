@@ -8,19 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class RatingPost
+ * Class RatingArticle
  * @package App\Models
  *
  * @property int id
+ * @property int article_id
  * @property int created_at
- * @property int post_id
  * @property int updated_at
  * @property int user_id
  * @property int value
  *
- * @property Post post
+ * @property Article article
  */
-class RatingPost extends Model
+class RatingArticle extends Model
 {
     /**
      * @var string $dateFormat
@@ -38,8 +38,8 @@ class RatingPost extends Model
     /**
      * @return BelongsTo
      */
-    public function post(): BelongsTo
+    public function article(): BelongsTo
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Article::class);
     }
 }

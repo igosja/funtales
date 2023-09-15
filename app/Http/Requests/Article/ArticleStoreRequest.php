@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Post;
+namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class PostStoreRequest
- * @package App\Http\Requests\Post
+ * Class ArticleStoreRequest
+ * @package App\Http\Requests\Article
  */
-class PostStoreRequest extends FormRequest
+class ArticleStoreRequest extends FormRequest
 {
     /**
      * @return array[]

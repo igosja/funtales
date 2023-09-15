@@ -6,11 +6,13 @@ use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RatingArticleController;
 use App\Http\Controllers\RatingCommentController;
-use App\Http\Controllers\RatingPostController;
+use App\Http\Controllers\SiteController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,7 +28,11 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', [SiteController::class, 'index'])->name('home');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/index', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -43,20 +49,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::name('comment.')->prefix('comment')->group(function () {
-        Route::put('/store', [CommentController::class, 'store'])->name('store');
+    Route::name('article.')->prefix('article')->group(function () {
+        Route::get('/', [ArticleController::class, 'index'])->name('index');
+        Route::get('/create', [ArticleController::class, 'create'])->name('create');
+        Route::get('/show/{article}', [ArticleController::class, 'show'])->name('show');
+        Route::post('/store', [ArticleController::class, 'store'])->name('store');
     });
-    Route::name('post.')->prefix('post')->group(function () {
-        Route::get('/', [PostController::class, 'index'])->name('index');
-        Route::get('/create', [PostController::class, 'create'])->name('create');
-        Route::get('/show/{post}', [PostController::class, 'show'])->name('show');
-        Route::put('/store', [PostController::class, 'store'])->name('store');
+    Route::name('comment.')->prefix('comment')->group(function () {
+        Route::post('/store', [CommentController::class, 'store'])->name('store');
+    });
+    Route::name('rating-article.')->prefix('rating-articlee')->group(function () {
+        Route::post('/store', [RatingArticleController::class, 'store'])->name('store');
     });
     Route::name('rating-comment.')->prefix('rating-comment')->group(function () {
-        Route::put('/store', [RatingCommentController::class, 'store'])->name('store');
-    });
-    Route::name('rating-post.')->prefix('rating-post')->group(function () {
-        Route::put('/store', [RatingPostController::class, 'store'])->name('store');
+        Route::post('/store', [RatingCommentController::class, 'store'])->name('store');
     });
 });
 
