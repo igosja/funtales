@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RatingArticle\RatingArticleStoreRequest;
+use App\Http\Requests\RatingArticle\RatingArticleUpdateRequest;
 use App\Models\RatingArticle;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Throwable;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class RatingArticleController
@@ -18,28 +19,51 @@ use Throwable;
 class RatingArticleController extends Controller
 {
     /**
-     * @param RatingArticleStoreRequest $request
-     * @return RedirectResponse
-     * @throws Throwable
+     * @return AnonymousResourceCollection
      */
-    public function store(RatingArticleStoreRequest $request): RedirectResponse
+    public function index(): AnonymousResourceCollection
     {
-        $ratingArticle = RatingArticle::where('user_id', Auth::user()->id)
-            ->where('article_id', $request->get('article_id'))
-            ->first();
-        if (!$ratingArticle) {
-            $ratingArticle = new RatingArticle();
-        }
+        $ratingArticles = RatingArticle::paginate();
+        return JsonResource::collection($ratingArticles);
+    }
 
-        $ratingArticle->fill($request->validated());
-        $ratingArticle->user_id = Auth::user()->id;
-        $ratingArticle->saveOrFail();
+    /**
+     * @param RatingArticle $ratingArticle
+     * @return JsonResource
+     */
+    public function show(RatingArticle $ratingArticle): JsonResource
+    {
+        return new JsonResource($ratingArticle);
+    }
 
-        $ratingArticle->post->rating += $ratingArticle->value;
-        $ratingArticle->post->saveOrFail();
+    /**
+     * @param RatingArticleStoreRequest $request
+     * @return JsonResource
+     */
+    public function store(RatingArticleStoreRequest $request): JsonResource
+    {
+        $ratingArticle = RatingArticle::create($request->validated());
+        return new JsonResource($ratingArticle);
+    }
 
-        return Redirect::route('article.show', [
-            'article' => $ratingArticle->article,
-        ]);
+    /**
+     * @param RatingArticleUpdateRequest $request
+     * @param RatingArticle $ratingArticle
+     * @return JsonResource
+     */
+    public function update(RatingArticleUpdateRequest $request, RatingArticle $ratingArticle)
+    {
+        $ratingArticle->update($request->validated());
+        return new JsonResource($ratingArticle);
+    }
+
+    /**
+     * @param RatingArticle $ratingArticle
+     * @return JsonResponse
+     */
+    public function destroy(RatingArticle $ratingArticle): JsonResponse
+    {
+        $ratingArticle->delete();
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\RatingComment;
+namespace App\Http\Requests\RatingArticle;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class RatingCommentStoreRequest
- * @package App\Http\Requests\Post
+ * Class RatingArticleUpdateRequest
+ * @package App\Http\Requests\RatingArticle
  */
-class RatingCommentStoreRequest extends FormRequest
+class RatingArticleUpdateRequest extends FormRequest
 {
     /**
      * @return array[]
@@ -18,7 +18,6 @@ class RatingCommentStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'comment_id' => ['required', 'integer', 'exists:comments,id'],
             'value' => ['required', 'integer'],
         ];
     }

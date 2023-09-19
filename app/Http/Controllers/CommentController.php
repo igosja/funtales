@@ -43,7 +43,6 @@ class CommentController extends Controller
     public function store(CommentStoreRequest $request): JsonResource
     {
         $comment = Comment::create($request->validated());
-        $comment->saveOrFail();
         return new JsonResource($comment);
     }
 

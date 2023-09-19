@@ -7,8 +7,8 @@ namespace App\Http\Requests\Comment;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class ArticleUpdateRequest
- * @package App\Http\Requests\Article
+ * Class CommentUpdateRequest
+ * @package App\Http\Requests\Comment
  */
 class CommentUpdateRequest extends FormRequest
 {
@@ -18,7 +18,7 @@ class CommentUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'text' => ['required', 'string'],
+            'text' => ['required', 'integer'],
         ];
     }
 }

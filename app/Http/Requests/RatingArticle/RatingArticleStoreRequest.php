@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class RatingArticleStoreRequest
- * @package App\Http\Requests\Post
+ * @package App\Http\Requests\RatingArticle
  */
 class RatingArticleStoreRequest extends FormRequest
 {
