@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RatingComment\RatingCommentStoreRequest;
+use App\Http\Requests\RatingComment\RatingCommentUpdateRequest;
 use App\Models\RatingComment;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Throwable;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class RatingCommentController
@@ -18,28 +19,51 @@ use Throwable;
 class RatingCommentController extends Controller
 {
     /**
-     * @param RatingCommentStoreRequest $request
-     * @return RedirectResponse
-     * @throws Throwable
+     * @return AnonymousResourceCollection
      */
-    public function store(RatingCommentStoreRequest $request): RedirectResponse
+    public function index(): AnonymousResourceCollection
     {
-        $ratingComment = RatingComment::where('user_id', Auth::user()->id)
-            ->where('comment_id', $request->get('comment_id'))
-            ->first();
-        if (!$ratingComment) {
-            $ratingComment = new RatingComment();
-        }
+        $ratingComments = RatingComment::paginate();
+        return JsonResource::collection($ratingComments);
+    }
 
-        $ratingComment->fill($request->validated());
-        $ratingComment->user_id = Auth::user()->id;
-        $ratingComment->saveOrFail();
+    /**
+     * @param RatingComment $ratingComment
+     * @return JsonResource
+     */
+    public function show(RatingComment $ratingComment): JsonResource
+    {
+        return new JsonResource($ratingComment);
+    }
 
-        $ratingComment->comment->rating += $ratingComment->value;
-        $ratingComment->comment->saveOrFail();
+    /**
+     * @param RatingCommentStoreRequest $request
+     * @return JsonResource
+     */
+    public function store(RatingCommentStoreRequest $request): JsonResource
+    {
+        $ratingComment = RatingComment::create($request->validated());
+        return new JsonResource($ratingComment);
+    }
 
-        return Redirect::route('article.show', [
-            'article' => $ratingComment->comment->article,
-        ]);
+    /**
+     * @param RatingCommentUpdateRequest $request
+     * @param RatingComment $ratingComment
+     * @return JsonResource
+     */
+    public function update(RatingCommentUpdateRequest $request, RatingComment $ratingComment)
+    {
+        $ratingComment->update($request->validated());
+        return new JsonResource($ratingComment);
+    }
+
+    /**
+     * @param RatingComment $ratingComment
+     * @return JsonResponse
+     */
+    public function destroy(RatingComment $ratingComment): JsonResponse
+    {
+        $ratingComment->delete();
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

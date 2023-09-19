@@ -7,10 +7,10 @@ namespace App\Http\Requests\RatingComment;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class RatingCommentStoreRequest
+ * Class RatingCommentUpdateRequest
  * @package App\Http\Requests\RatingComment
  */
-class RatingCommentStoreRequest extends FormRequest
+class RatingCommentUpdateRequest extends FormRequest
 {
     /**
      * @return array[]
@@ -18,7 +18,6 @@ class RatingCommentStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'comment_id' => ['required', 'integer', 'exists:comments,id'],
             'value' => ['required', 'integer'],
         ];
     }

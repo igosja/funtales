@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Article\ArticleStoreRequest;
+use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\Models\Article;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
-use Inertia\Inertia;
-use Inertia\Response;
-use Throwable;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ArticleController
@@ -19,60 +19,52 @@ use Throwable;
 class ArticleController extends Controller
 {
     /**
-     * @return Response
+     * @return AnonymousResourceCollection
      */
-    public function index(): Response
+    public function index(): AnonymousResourceCollection
     {
-        $articles = Article::get();
-
-        return Inertia::render('Article/Index', [
-            'articles' => $articles,
-        ]);
-    }
-
-    /**
-     * @return Response
-     */
-    public function create(): Response
-    {
-        return Inertia::render('Article/Create', [
-            'article' => new Article(),
-        ]);
-    }
-
-    /**
-     * @param ArticleStoreRequest $request
-     * @return RedirectResponse
-     * @throws Throwable
-     */
-    public function store(ArticleStoreRequest $request): RedirectResponse
-    {
-        $article = new Article();
-        $article->fill($request->validated());
-        $article->saveOrFail();
-
-        $article->views++;
-        $article->saveOrFail();
-
-        return Redirect::route('article.show', [
-            'article' => $article,
-        ]);
+        $articles = Article::paginate();
+        return JsonResource::collection($articles);
     }
 
     /**
      * @param Article $article
-     * @return Response
-     * @throws Throwable
+     * @return JsonResource
      */
-    public function show(Article $article): Response
+    public function show(Article $article): JsonResource
     {
-        $article->views++;
+        return new JsonResource($article);
+    }
+
+    /**
+     * @param ArticleStoreRequest $request
+     * @return JsonResource
+     */
+    public function store(ArticleStoreRequest $request): JsonResource
+    {
+        $article = Article::create($request->validated());
         $article->saveOrFail();
+        return new JsonResource($article);
+    }
 
-        $article->comments;
+    /**
+     * @param ArticleUpdateRequest $request
+     * @param Article $article
+     * @return JsonResource
+     */
+    public function update(ArticleUpdateRequest $request, Article $article)
+    {
+        $article->update($request->validated());
+        return new JsonResource($article);
+    }
 
-        return Inertia::render('Article/Show', [
-            'article' => $article,
-        ]);
+    /**
+     * @param Article $article
+     * @return JsonResponse
+     */
+    public function destroy(Article $article): JsonResponse
+    {
+        $article->delete();
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
