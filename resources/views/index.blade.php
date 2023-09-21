@@ -26,7 +26,7 @@
     -->
     <title>React App</title>
     @viteReactRefresh
-    @vite('resources/js/index.jsx')
+    @vite('resources/js/index.tsx')
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
