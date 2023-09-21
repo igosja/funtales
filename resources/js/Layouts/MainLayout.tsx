@@ -11,7 +11,7 @@ export default function MainLayout({children}: PropsWithChildren) {
                     <Container>
                         <Navbar.Brand href="javascript:">Fun Tales</Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-                        <Navbar.Collapse id="basic-navbar-nav" role={1}>
+                        <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
                                 <Nav.Link href="javascript:">Home</Nav.Link>
                             </Nav>
