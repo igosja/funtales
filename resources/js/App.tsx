@@ -13,7 +13,6 @@ function App() {
         axios
             .get(url)
             .then(data => {
-                console.log(data);
                 setArticles(data.data.data)
             });
     };
@@ -29,7 +28,7 @@ function App() {
                     <Col key={idx}>
                         <Card>
                             <Card.Header>
-                                <Card.Link href="javascript">
+                                <Card.Link href={'/article/' + slug}>
                                     {title}
                                 </Card.Link>
                             </Card.Header>
