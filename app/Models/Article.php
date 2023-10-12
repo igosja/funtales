@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 /**
  * Class Article
@@ -18,7 +16,6 @@ use Illuminate\Support\Str;
  * @property int created_by
  * @property int language_id
  * @property int rating
- * @property string slug
  * @property string title
  * @property string text
  * @property int updated_at
@@ -47,25 +44,10 @@ class Article extends Model
             $model->created_by = $user->id;
             $model->updated_by = $user->id;
             $model->language_id = 1;
-            $model->slug = Str::slug($model->id . ' ' . $model->title, '-');
         });
         static::updating(function ($model) {
             $user = Auth::user();
             $model->updated_by = $user->id;
-            $model->slug = Str::slug($model->id . ' ' . $model->title, '-');
         });
-    }
-
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class);
     }
 }

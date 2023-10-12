@@ -23,7 +23,6 @@ return new class extends Migration {
                 $table->unsignedBigInteger('created_by');
                 $table->unsignedBigInteger('language_id');
                 $table->integer('rating')->default(0);
-                $table->string('slug')->unique();
                 $table->string('title');
                 $table->text('text');
                 $table->unsignedInteger('updated_at');

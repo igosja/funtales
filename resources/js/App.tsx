@@ -13,7 +13,6 @@ function App() {
         axios
             .get(url)
             .then(data => {
-                console.log(data);
                 setArticles(data.data.data)
             });
     };
@@ -25,11 +24,11 @@ function App() {
     return (
         <MainLayout>
             <Row xs={1} sm={1} md={1} lg={1} xl={1} xxl={1} className="g-4">
-                {articles.map(({created_at, created_by, rating, slug, title, text, views}, idx) => (
+                {articles.map(({created_at, created_by, id, rating, title, text, views}, idx) => (
                     <Col key={idx}>
                         <Card>
                             <Card.Header>
-                                <Card.Link href="javascript">
+                                <Card.Link href={'/article/' + id}>
                                     {title}
                                 </Card.Link>
                             </Card.Header>

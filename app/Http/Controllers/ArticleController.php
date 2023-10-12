@@ -23,7 +23,7 @@ class ArticleController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        $articles = Article::paginate();
+        $articles = Article::orderBy('id', 'desc')->cursorPaginate();
         return JsonResource::collection($articles);
     }
 
