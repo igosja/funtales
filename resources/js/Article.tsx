@@ -12,7 +12,6 @@ function Article() {
         created_by: '',
         language_id: '',
         rating: '',
-        slug: '',
         title: '',
         text: '',
         updated_at: '',
@@ -68,10 +67,6 @@ function Article() {
                                     +
                                     -
                                 </td>
-                            </tr>
-                            <tr>
-                                <th>slug</th>
-                                <td>{article.slug}</td>
                             </tr>
                             <tr>
                                 <th>title</th>
