@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import MainLayout from "./Layouts/MainLayout";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import MainLayout from "../layout/MainLayout";
 import {Link, useParams} from "react-router-dom";
 
-function Article() {
+function ArticleViewPage() {
     const url = '/api/articles/';
     const [article, setArticle] = useState({
         id: '',
@@ -23,7 +22,7 @@ function Article() {
 
     const fetchArticleData = () => {
         axios
-            .get(url + params.articleSlug)
+            .get(url + params.id)
             .then(data => {
                 setArticle(data.data.data)
             });
@@ -97,4 +96,4 @@ function Article() {
     );
 }
 
-export default Article;
+export default ArticleViewPage;

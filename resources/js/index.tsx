@@ -2,28 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import App from './App';
-import {createBrowserRouter, RouterProvider,} from "react-router-dom";
-import ErrorPage from "./error-page";
-import Article from "./Article";
+import App from "./App";
+import {BrowserRouter} from "react-router-dom";
+import {AuthProvider} from "./context/AuthProvider";
 
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App/>,
-        errorElement: <ErrorPage/>,
-    },
-    {
-        path: "article/:articleSlug",
-        element: <Article/>,
-    },
-]);
-
-ReactDOM.createRoot(
+const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
-).render(
+);
+
+root.render(
     <React.StrictMode>
-        <RouterProvider router={router}/>
+        <BrowserRouter>
+            <AuthProvider>
+                <App/>
+            </AuthProvider>
+        </BrowserRouter>
     </React.StrictMode>
 );
 

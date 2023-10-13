@@ -2,8 +2,9 @@ import {PropsWithChildren} from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function MainLayout({children}: PropsWithChildren) {
+function MainLayout({children}: PropsWithChildren) {
     return (
         <section>
             <header id="header">
@@ -14,6 +15,7 @@ export default function MainLayout({children}: PropsWithChildren) {
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
                                 <Nav.Link href={'/'}>Home</Nav.Link>
+                                <Nav.Link href={'/admin'}>Admin</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
@@ -35,3 +37,5 @@ export default function MainLayout({children}: PropsWithChildren) {
         </section>
     );
 }
+
+export default MainLayout;
