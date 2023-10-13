@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RatingArticleController;
 use App\Http\Controllers\RatingCommentController;
@@ -27,3 +28,6 @@ Route::apiResource('articles', ArticleController::class);
 Route::apiResource('comments', CommentController::class);
 Route::apiResource('rating-articles', RatingArticleController::class);
 Route::apiResource('rating-comments', RatingCommentController::class);
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('signup', [AuthController::class, 'signup']);

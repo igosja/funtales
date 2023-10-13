@@ -12,7 +12,9 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({children}: { children: JSX.Element }) => {
-    const [isAuthenticated, setAuth] = useState<boolean>(false);
+    const [isAuthenticated, setAuth] = useState<boolean>(
+        !!localStorage.getItem('access_token'),
+    );
 
     return (
         <AuthContext.Provider value={{isAuthenticated, setAuth}}>

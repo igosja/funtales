@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Class ArticleController
  * @package App\Http\Controllers
  */
-class ArticleController extends Controller
+class ArticleController extends AbstractController
 {
     /**
      * @return AnonymousResourceCollection
