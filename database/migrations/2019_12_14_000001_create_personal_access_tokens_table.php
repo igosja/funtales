@@ -19,13 +19,13 @@ return new class extends Migration {
             function (Blueprint $table) {
                 $table->id();
                 $table->text('abilities')->nullable();
-                $table->timestamp('created_at');
-                $table->timestamp('last_used_at')->nullable();
-                $table->timestamp('expires_at')->nullable();
+                $table->unsignedInteger('created_at');
+                $table->unsignedInteger('last_used_at')->nullable();
+                $table->unsignedInteger('expires_at')->nullable();
                 $table->string('name');
                 $table->string('token', 64)->unique();
                 $table->morphs('tokenable');
-                $table->timestamp('updated_at');
+                $table->unsignedInteger('updated_at');
             }
         );
     }

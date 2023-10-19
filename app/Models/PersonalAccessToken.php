@@ -12,15 +12,19 @@ use Laravel\Sanctum\PersonalAccessToken as SanctumPersonalAccessToken;
  *
  * @property int id
  * @property string abilities
- * @property string created_at
- * @property string expires_at
- * @property string last_used_at
+ * @property int created_at
+ * @property int expires_at
+ * @property int last_used_at
  * @property string name
  * @property string token
  * @property string tokenable_type
  * @property int tokenable_id
- * @property string updated_at
+ * @property int updated_at
  */
 class PersonalAccessToken extends SanctumPersonalAccessToken
 {
+    /**
+     * @var string $dateFormat
+     */
+    protected $dateFormat = 'U';
 }
