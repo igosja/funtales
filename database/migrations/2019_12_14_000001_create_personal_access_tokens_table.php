@@ -20,8 +20,8 @@ return new class extends Migration {
                 $table->id();
                 $table->text('abilities')->nullable();
                 $table->unsignedInteger('created_at');
-                $table->unsignedInteger('expires_at')->nullable();
                 $table->unsignedInteger('last_used_at')->nullable();
+                $table->unsignedInteger('expires_at')->nullable();
                 $table->string('name');
                 $table->string('token', 64)->unique();
                 $table->morphs('tokenable');

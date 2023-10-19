@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -24,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
  *
  * @property Comment[] comments
  */
-class Article extends Model
+class Article extends AbstractModel
 {
     /**
      * @var string[] $fillable
@@ -34,8 +33,9 @@ class Article extends Model
         'text',
     ];
 
-    protected $dateFormat = 'U';
-
+    /**
+     * @return void
+     */
     public static function boot(): void
     {
         parent::boot();

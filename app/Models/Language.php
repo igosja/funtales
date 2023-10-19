@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Class Language
  * @package App\Models
@@ -17,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool is_active
  * @property int updated_at
  */
-class Language extends Model
+class Language extends AbstractModel
 {
     /**
      * @var string[] $fillable
@@ -27,6 +25,4 @@ class Language extends Model
         'name',
         'is_active',
     ];
-
-    protected $dateFormat = 'U';
 }

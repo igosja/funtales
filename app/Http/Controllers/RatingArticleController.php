@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Class RatingArticleController
  * @package App\Http\Controllers
  */
-class RatingArticleController extends Controller
+class RatingArticleController extends AbstractController
 {
     /**
      * @return AnonymousResourceCollection
