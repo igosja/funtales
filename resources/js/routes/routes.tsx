@@ -7,6 +7,7 @@ import LoginPage from "../pages/auth/LoginPage";
 import SignupPage from "../pages/auth/SignupPage";
 import LogoutPage from "../pages/auth/LogoutPage";
 import AdminPage from "../pages/AdminPage";
+import LangPage from "../pages/site/LangPage";
 
 const useRoutes = () => {
     return (
@@ -16,6 +17,7 @@ const useRoutes = () => {
             <Route path="/article/:id" element={<ArticleViewPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/signup" element={<SignupPage/>}/>
+            <Route path="/lang" element={<LangPage/>}/>
             <Route path='*' element={<ErrorPage/>}/>
 
             <Route element={<PrivateRoute/>}>
